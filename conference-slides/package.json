@@ -1,0 +1,8 @@
+{
+  "name": "trustcon-demo",
+  "version": "1.0.0",
+  "description": "TrustCon 2026 presentation demo app",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

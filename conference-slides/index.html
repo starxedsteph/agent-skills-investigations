@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TrustCon 2026</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== SLIDE VIEW ===== -->
+  <div id="slide-view" class="view" style="display:none">
+    <div id="slide-content"></div>
+  </div>
+
+  <!-- ===== VS CODE VIEW ===== -->
+  <div id="vscode-view" class="view" style="display:none">
+    <div class="vscode-window">
+
+      <div class="vscode-titlebar">
+        <div class="traffic-lights">
+          <span class="tl tl-red"></span>
+          <span class="tl tl-yellow"></span>
+          <span class="tl tl-green"></span>
+        </div>
+        <div class="titlebar-center">
+          <span class="titlebar-path" id="titlebar-path">skills — Visual Studio Code</span>
+        </div>
+        <div class="titlebar-right"></div>
+      </div>
+
+      <div class="vscode-body">
+
+        <!-- Activity bar -->
+        <div class="activity-bar">
+          <div class="ab-icon ab-active" title="Explorer">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v2H5v14h14v-6h2v8H3V3zm11 0h7v7h-2V6.4l-9.3 9.3-1.4-1.4L17.6 5H14V3z"/></svg>
+          </div>
+          <div class="ab-icon" title="Search">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27A6.5 6.5 0 0 0 16 9.5 6.5 6.5 0 0 0 9.5 3 6.5 6.5 0 0 0 3 9.5 6.5 6.5 0 0 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          </div>
+          <div class="ab-icon" title="Source Control">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17 3a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-3.46-2H9.5A3.5 3.5 0 0 1 6 12.5a3.5 3.5 0 0 1-3.5-3.5A3.5 3.5 0 0 1 6 5.5c1.04 0 1.97.45 2.62 1.16L11.54 5A4 4 0 0 1 17 3m0 2a2 2 0 0 0-2 2 2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2M6 7.5A1.5 1.5 0 0 0 4.5 9 1.5 1.5 0 0 0 6 10.5 1.5 1.5 0 0 0 7.5 9 1.5 1.5 0 0 0 6 7.5z"/></svg>
+          </div>
+          <div class="ab-icon ab-bottom" title="Settings">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="sidebar-header">EXPLORER</div>
+          <div class="sidebar-section-label">
+            <span class="section-chevron">▾</span>
+            <span id="explorer-section-name">SKILLS</span>
+          </div>
+          <div class="explorer-tree" id="explorer-tree"></div>
+        </div>
+
+        <!-- Sidebar resize handle -->
+        <div class="resize-handle-x" id="sidebar-resize"></div>
+
+        <!-- Hidden editor area (shown in editor mode) -->
+        <div class="editor-area" style="display:none">
+          <div class="editor-tabs" id="editor-tabs">
+            <div class="editor-tab active" id="editor-tab-name"></div>
+          </div>
+          <div class="editor-content" id="editor-content"></div>
+        </div>
+
+        <!-- Main column: chat fills center, terminal below -->
+        <div class="main-column">
+          <div class="chat-panel">
+            <div class="chat-header">
+              <span class="chat-title">CHAT</span>
+              <div class="chat-header-icons">
+                <span>+</span>
+                <span>⋯</span>
+                <span class="chat-header-sep">|</span>
+                <button class="chat-expand-btn" id="chat-expand-btn" title="Expand chat">
+                  <svg id="chat-expand-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M1.5 5.5V2h3.5V.5H0V5.5h1.5zm9.5-5v1.5H14.5V5.5H16V.5h-5zm5 9.5h-1.5v3.5H11V15h5v-5zM5 14.5H2v-3.5H.5V15h5v-1.5z"/>
+                  </svg>
+                  <svg id="chat-collapse-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="display:none">
+                    <path d="M4 1.5H.5V0H5.5V5H4V1.5zm7.5 0V5H10V0h5v1.5H11.5zm0 10V15H16v-1.5h-3.5V10H11v3.5zM4 14.5V11H2.5v3.5H-.5V16H4v-1.5z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-footer">
+              <div class="chat-input-box">
+                <div class="chat-input-text" id="chat-input-text"></div>
+                <div class="chat-input-placeholder" id="chat-input-placeholder">Describe what to build</div>
+              </div>
+              <div class="chat-input-meta">
+                <span class="chat-meta-item">Local</span>
+                <span class="chat-meta-sep">·</span>
+                <span class="chat-meta-item">Default Approvals</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="terminal-panel">
+            <div class="resize-handle-y" id="terminal-resize"></div>
+            <div class="terminal-tab-strip">
+              <span class="term-tab term-tab-active">TERMINAL</span>
+              <span class="term-tab">PROBLEMS</span>
+              <span class="term-tab">OUTPUT</span>
+              <span class="term-tab">DEBUG CONSOLE</span>
+              <span class="term-tab-sep"></span>
+              <span class="term-tab term-tab-sm">bash</span>
+              <span class="term-tab term-tab-sm">+</span>
+            </div>
+            <div class="terminal-content" id="terminal-content"></div>
+          </div>
+        </div>
+
+      </div><!-- /vscode-body -->
+
+      <div class="status-bar">
+        <div class="sb-left">
+          <span class="sb-item">⎇ main</span>
+        </div>
+        <div class="sb-right">
+          <span class="sb-item">Ln 1, Col 1</span>
+          <span class="sb-item">Spaces: 2</span>
+          <span class="sb-item">UTF-8</span>
+          <span class="sb-item">Markdown</span>
+        </div>
+      </div>
+
+    </div><!-- /vscode-window -->
+
+    <!-- Auth overlay -->
+    <div class="auth-overlay" id="auth-overlay" style="display:none">
+      <div class="auth-modal">
+        <div class="auth-icon">
+          <svg class="auth-lock-icon" width="48" height="48" viewBox="0 0 24 24" fill="#cccccc"><path d="M17 1H7C5.9 1 5 1.9 5 3v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14zm-5-1c.83 0 1.5-.67 1.5-1.5S12.83 15 12 15s-1.5.67-1.5 1.5S11.17 18 12 18z"/></svg>
+          <span class="auth-checkmark">✓</span>
+        </div>
+        <div class="auth-title">Data access required</div>
+        <div class="auth-sub">Authenticate to query <code>signups</code></div>
+        <div class="auth-hint">Touch ID</div>
+      </div>
+    </div>
+
+  </div><!-- /vscode-view -->
+
+  <!-- ===== QUERY EDITOR VIEW ===== -->
+  <div id="query-editor-view" class="view" style="display:none">
+    <div class="qe-window">
+      <div class="qe-titlebar">
+        <div class="traffic-lights">
+          <span class="tl tl-red"></span>
+          <span class="tl tl-yellow"></span>
+          <span class="tl tl-green"></span>
+        </div>
+        <span class="qe-appname">Query Editor</span>
+      </div>
+      <div class="qe-toolbar">
+        <div class="qe-tab-bar">
+          <div class="qe-tab qe-tab-active">Untitled Query 1</div>
+          <div class="qe-tab-add">＋</div>
+        </div>
+        <div class="qe-run-area">
+          <button class="qe-run-btn" id="qe-run-btn">▶ Run</button>
+        </div>
+      </div>
+      <div class="qe-body">
+        <div class="qe-editor-pane">
+          <div class="qe-line-nums" id="qe-line-nums"></div>
+          <pre class="qe-code" id="qe-code"></pre>
+        </div>
+        <div class="qe-divider"></div>
+        <div class="qe-results-pane" id="qe-results">
+          <div class="qe-placeholder">Results will appear here</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Beat counter -->
+  <div id="beat-counter"></div>
+
+  <script src="beats.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
