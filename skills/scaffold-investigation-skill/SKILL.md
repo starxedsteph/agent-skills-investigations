@@ -15,11 +15,6 @@ doing anything else, load and follow `skill-creator` for the base creation and
 revision flow — this skill adds the investigation-specific questions (tables,
 queries, signals, false positives, and gotchas) on top.
 
-The Agent Skills spec has no dependency field and no auto-loading: skills are
-discovered and loaded on demand. So rather than rely on a non-spec `dependencies`
-field, the requirement is written here in the instructions. Any agent that reads
-this skill will honor it, which keeps it portable.
-
 ---
 
 ## Purpose
