@@ -24,8 +24,8 @@ an AI-assisted investigation workflow on your own team.
 |---|---|
 | [`skills/`](skills/) | Starter skills and documentation |
 | [`skills/campaign-identification`](skills/campaign-identification/) | Orchestrates multi-signal campaign expansion from seed entities |
-| [`skills/investigation-seo-spam`](skills/investigation-seo-spam/) | Finds SEO spam using public web search — no internal data required |
-| [`skills/scaffold-investigation-skill`](skills/scaffold-investigation-skill/) | Guides analysts through building spec-compliant investigation skills |
+| [`skills/investigation-seo-spam`](skills/investigation-seo-spam/) | Investigates SEO spam using public web search — no internal data required |
+| [`skills/scaffold-investigation-skill`](skills/scaffold-investigation-skill/) | Guides the agent through creating and updating investigation skills; requires [`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator) |
 
 ## About
 

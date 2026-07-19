@@ -8,8 +8,66 @@
 - Git
 
 That's the full list. You don't need to write code. You don't need to deploy
-anything. The skills are markdown files in a folder — you can start writing
-them today.
+anything. You provide the investigation expertise; the agent uses skill-creation
+skills to interview you, organize that knowledge, and write or update the files.
+
+---
+
+## Install the skills
+
+This repository keeps source material under `skills/`, but clients discover
+skills from client-specific locations. The easiest option is to ask your model
+to install them for you:
+
+```text
+Install these skills in the appropriate project skills location for my client.
+Copy each complete skill directory and tell me where you installed it.
+```
+
+You can also copy each complete skill directory yourself into a supported
+project or personal skills directory.
+
+For GitHub Copilot in VS Code, project skills can live in `.github/skills/`,
+`.claude/skills/`, or `.agents/skills/`. The example below uses
+`.github/skills/`:
+
+```text
+.github/skills/
+  campaign-identification/
+  investigation-seo-spam/
+  scaffold-investigation-skill/
+  skill-creator/
+```
+
+Install the complete [`skill-creator` directory from Anthropic's skills
+repository](https://github.com/anthropics/skills/tree/main/skills/skill-creator).
+`scaffold-investigation-skill` requires it for the base skill-creation and
+revision workflow.
+
+See [Use Agent Skills in VS Code](https://code.visualstudio.com/docs/copilot/customization/agent-skills)
+for VS Code installation options. Other clients use different discovery
+locations; choose your client from the [agentskills.io client
+directory](https://agentskills.io/clients) and follow its instructions.
+
+Add your project skills directory to git so skill changes are reviewed and
+versioned. Ask the agent to create an investigation skill as described below.
+If it does not discover the creation workflow, check the skill-discovery
+location for your client before continuing.
+
+## Have the agent create your first skill
+
+Start with the investigation type you know best (signup abuse, billing fraud,
+content spam, or whatever you do most). Do not draft the skill first. Describe
+what you want to create and let the agent discover the relevant skills. It will
+interview you for your tables, working queries, signals, false positives,
+stopping criteria, and gotchas, then assemble and validate the files.
+
+```text
+Help me create a ___ investigation skill
+```
+
+See [`adapting-to-your-environment.md`](adapting-to-your-environment.md) for
+what expertise to bring to that conversation.
 
 ---
 
@@ -45,29 +103,7 @@ Read [`SECURITY.md`](SECURITY.md). Specifically:
 
 ### Steps
 
-**1. Set up your skills folder**
-
-Clone this repo, or copy the `skills/` folder into your own repository.
-Add it to git if it isn't already.
-
-```
-skills/
-  campaign-identification/
-  investigation-seo-spam/
-  (your own skills here)
-```
-
-**2. Connect your agent to your skills folder**
-
-How this works depends on your agent setup. Most IDE-based agents (e.g.,
-Claude Code, Cursor, Copilot Chat) let you configure a workspace or
-project-level context folder. Point it at your `skills/` directory.
-
-If you're using a CLI-based agent, check its documentation for how to
-specify a skills or context directory. A list of agents that support the
-skills format natively is at [agentskills.io/clients](https://agentskills.io/clients).
-
-**3. Get the database connection set up**
+**1. Get the database connection set up**
 
 This is the step most likely to need engineering help. What you need:
 
@@ -79,32 +115,27 @@ This is the step most likely to need engineering help. What you need:
 If you have a principal engineer or platform engineer on your team,
 this is the right person to ask. It's a one-time setup.
 
-**4. Write your first skill**
-
-Start with the tables you know best. Pick one investigation type
-(signup abuse, billing fraud, content spam — whatever you do most)
-and write a skill for it.
-
-See [`adapting-to-your-environment.md`](adapting-to-your-environment.md) for
-a template and guidance on what to include.
-
-**5. Test it**
+**2. Test it**
 
 Run an investigation you already know the answer to. Use a case you've
 already closed, where you know what the cluster looked like and how it was
 found. See if the agent finds the same thing you did.
 
 If it doesn't — that's useful information. Update the skill with what it missed.
+Ask the agent to review the existing skill, make the correction in the right
+place, and revalidate the result.
 
 ---
 
 ## Checklist
 
 - [ ] AI model approved for my data's classification level
-- [ ] Skills folder created and added to git
-- [ ] Agent configured to use skills folder
-- [ ] Database connection set up (read-only) with credentials in env vars
-- [ ] At least one investigation skill written for my environment
+- [ ] Skills copied to a discovery location supported by my client
+- [ ] `skill-creator` installed from Anthropic's complete skill directory
+- [ ] Agent discovers the skill-creation workflow from my request
+- [ ] Project skills directory added to git
+- [ ] Database connection set up read-only with credentials in env vars (if needed)
+- [ ] Agent created at least one investigation skill for my environment
 - [ ] First test investigation run on a known-closed case
 
 ---
@@ -113,8 +144,8 @@ If it doesn't — that's useful information. Update the skill with what it misse
 
 Talk to your team. The best way to build your first investigation skill
 is to sit down with a teammate who knows the tables cold and have them
-help you write it. Their knowledge goes in once; the whole team benefits
-every time after that.
+answer the agent's questions with you. The agent handles the file structure;
+their knowledge goes in once, and the whole team benefits every time after that.
 
 If you can't get the DB connection set up on your own, ask a principal
 engineer. Frame it as: "I need a read-only connection to [these tables]

@@ -1,6 +1,6 @@
 ---
 name: scaffold-investigation-skill
-description: Interactive assistant for building investigation skills. Guides you through defining the investigation domain, providing tables and queries, documenting abuse signals and false positives, and validating the result against the agentskills.io spec. Use when creating a new investigation-* skill for a specific abuse domain.
+description: Interactive assistant for creating and updating investigation skills. Guides you through defining the investigation domain, providing tables and queries, documenting abuse signals and false positives, incorporating corrections from real use, and validating the result against the agentskills.io spec. Use when creating or revising an investigation-* skill for a specific abuse domain.
 ---
 
 # scaffold-investigation-skill
@@ -9,14 +9,11 @@ description: Interactive assistant for building investigation skills. Guides you
 
 ## Prerequisite
 
-This skill builds on **[`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator)**. Before doing anything else, load and
-follow `skill-creator` for the base skill-creation flow — this skill only adds
-the investigation-specific questions (tables, queries, signals, gotchas) on top.
-
-The Agent Skills spec has no dependency field and no auto-loading: skills are
-discovered and loaded on demand. So rather than rely on a non-spec `dependencies`
-field, the requirement is written here in the instructions. Any agent that reads
-this skill will honor it, which keeps it portable.
+This skill builds on **[`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator)**.
+Install the complete `skill-creator` directory from that exact location. Before
+doing anything else, load and follow `skill-creator` for the base creation and
+revision flow — this skill adds the investigation-specific questions (tables,
+queries, signals, false positives, and gotchas) on top.
 
 ---
 
@@ -39,12 +36,13 @@ Use this when you want a new `investigation-{domain}` skill for:
 - A new abuse category not yet covered by an existing skill
 - A product area with its own investigation needs
 - A new data source that needs documented query patterns
+- Updating an existing investigation skill with new queries, signals, gotchas,
+  false positives, or corrections learned from real use
 
 **Don't use this for:**
 
 - General skill creation → use the base `skill-creator`
 - Non-investigation skills (dashboards, tooling, one-off scripts)
-- Editing an existing investigation skill → edit it directly
 
 ---
 
@@ -114,12 +112,15 @@ and the basic abuse signals are named.
 ## Output shape (bake this into every skill)
 
 Every investigation skill should produce results a human can spot-check. Instruct
-the generated skill to always return **identifiable rows** — enough to confirm the
-cluster by hand:
+the generated skill to return the **minimum identifiable context needed** to
+confirm the cluster by hand:
 
 - A stable identifier (account id, username, or equivalent)
-- Human-readable context (email, created-at, country, etc.)
+- Human-readable context needed for validation (created-at, country, etc.)
 - **The specific field that ties each row to the cluster** — the connecting signal
+
+Include email or other PII only when it is necessary for validation and the
+output location is approved for that data.
 
 A finding you can't spot-check isn't actionable. Make that non-negotiable in the
 skills you generate.
@@ -153,8 +154,7 @@ If `SKILL.md` runs long, move query libraries and schema notes into `references/
 **Start interactively**
 
 ```
-I want to create an investigation skill for account takeovers.
-Walk me through what you need from me.
+Help me create a ___ investigation skill
 ```
 
 **Provide tables and queries upfront**
@@ -185,8 +185,11 @@ and ask me for any context you still need.
 **Add domain knowledge later**
 
 ```
-For my investigation-account-takeover skill, document this gotcha:
+Update my investigation-account-takeover skill with this gotcha:
 "last_login is updated lazily — it can lag real activity by up to an hour."
+
+Review the existing skill, make the change in the right section, and validate
+the updated skill against the agentskills.io spec.
 ```
 
 ---
@@ -206,7 +209,8 @@ For my investigation-account-takeover skill, document this gotcha:
 - [ ] False positives documented
 - [ ] At least one real investigation pattern
 - [ ] A handful of ready-to-run queries (in `references/` if long)
-- [ ] Output shape requires identifiable, spot-checkable rows
+- [ ] Output shape requires the minimum context needed for spot-checking
+- [ ] Email and other PII are included only when necessary and appropriate
 
 ### Integration
 - [ ] Related-skills section cross-references complementary skills
