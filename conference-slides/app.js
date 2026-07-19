@@ -272,19 +272,16 @@ function slideBrowserHTML(s) {
         <span class="sb-logo">Agent Skills</span>
         <span class="sb-docs-label">Documentation</span>
       </nav>
-      <div class="sb-body">
-        <aside class="sb-sidenav">
-          <div class="sb-sidenav-item sb-sidenav-active">Overview</div>
-          <div class="sb-sidenav-item">Specification</div>
-          <div class="sb-sidenav-item">Quickstart</div>
-          <div class="sb-sidenav-item">Best practices</div>
-        </aside>
-        <main class="sb-main">
-          <h1 class="sb-h1">Agent Skills Overview</h1>
-          <p class="sb-sub">A standardized way to give AI agents new capabilities and expertise.</p>
-          <h2 class="sb-h2">What are Agent Skills?</h2>
-          <p class="sb-p">Agent Skills are a lightweight, open format for extending AI agent capabilities with specialized knowledge and workflows.</p>
-          <div class="sb-page-hint" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="sb-body sb-structure-body">
+        <main class="sb-structure-main">
+          <div class="sb-structure-tree" role="img" aria-label="Example Agent Skill directory structure">
+            <div class="sb-structure-root"><span class="sb-dir">my-skill/</span></div>
+            <div><span class="sb-tree">├── </span><span class="sb-file">SKILL.md</span><span class="sb-comment"># Required: metadata + instructions</span></div>
+            <div><span class="sb-tree">├── </span><span class="sb-dir">scripts/</span><span class="sb-comment"># Optional: executable code</span></div>
+            <div><span class="sb-tree">├── </span><span class="sb-dir">references/</span><span class="sb-comment"># Optional: documentation</span></div>
+            <div><span class="sb-tree">├── </span><span class="sb-dir">assets/</span><span class="sb-comment"># Optional: templates, resources</span></div>
+            <div><span class="sb-tree">└── </span><span class="sb-file">...</span><span class="sb-comment"># Any additional files or directories</span></div>
+          </div>
         </main>
       </div>
     </div>
