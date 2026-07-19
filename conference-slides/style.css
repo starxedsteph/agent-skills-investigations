@@ -61,16 +61,27 @@ code { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
 
 /* Title slide */
 .slide-title {
+  position: relative; width: 100%; height: 100%;
   text-align: center; color: #f0f6fc; padding: 60px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.title-github-mark {
+  position: absolute; right: 6vw; bottom: 1.5vh;
+  width: clamp(150px, 15vw, 230px); height: auto;
+  z-index: 0;
 }
 .slide-title .talk-title {
+  position: relative; z-index: 1;
   font-size: 4rem; font-weight: 700; line-height: 1.2;
   color: #f0f6fc; margin-bottom: 24px;
 }
 .slide-title .talk-subtitle {
+  position: relative; z-index: 1;
   font-size: 1.8rem; color: #8b949e; margin-bottom: 48px;
 }
 .slide-title .speaker-name {
+  position: relative; z-index: 1;
   display: inline-block;
   font-size: 2rem; font-weight: 700; color: #407cff;
   background: linear-gradient(100deg, #9b59ff 0%, #407cff 48%, #20c997 100%);
@@ -78,7 +89,16 @@ code { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
   -webkit-text-fill-color: transparent;
 }
 .slide-title .speaker-affiliation {
+  position: relative; z-index: 1;
   font-size: 1.5rem; color: #8b949e; margin-top: 8px;
+}
+@media (max-width: 900px) {
+  .slide-title { padding: 24px 32px; }
+  .title-github-mark { right: 28px; bottom: 22px; width: 105px; }
+  .slide-title .talk-title { font-size: 2.8rem; line-height: 1.1; margin-bottom: 12px; }
+  .slide-title .talk-subtitle { font-size: 1.25rem; margin-bottom: 24px; }
+  .slide-title .speaker-name { font-size: 1.5rem; }
+  .slide-title .speaker-affiliation { font-size: 1.1rem; margin-top: 6px; }
 }
 
 /* Crowding slide */
@@ -222,6 +242,40 @@ code { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
   font-size: 2rem; color: #8b949e; max-width: 900px; margin: 0 auto;
   line-height: 1.6;
 }
+.minimal-accent-line {
+  width: min(520px, 52vw); height: 3px; margin: 22px auto 26px;
+  background: linear-gradient(90deg, #9b59ff, #407cff 50%, #20c997);
+}
+.minimal-skill-mark {
+  position: relative; width: 132px; height: 88px; margin: 0 auto 30px;
+}
+.minimal-skill-mark span {
+  position: absolute; width: 74px; height: 88px; border-radius: 6px;
+  background: #161b22; border: 3px solid currentColor;
+}
+.minimal-skill-mark span::after {
+  content: ''; position: absolute; right: -3px; top: -3px;
+  border-style: solid; border-width: 0 22px 22px 0;
+  border-color: transparent #0d1117 transparent transparent;
+}
+.minimal-skill-mark span:nth-child(1) { left: 0; top: 8px; color: #9b59ff; transform: rotate(-7deg); }
+.minimal-skill-mark span:nth-child(2) { left: 29px; top: 1px; color: #407cff; }
+.minimal-skill-mark span:nth-child(3) { right: 0; top: 8px; color: #20c997; transform: rotate(7deg); }
+.minimal-collab-mark {
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  margin: 0 auto 30px;
+}
+.minimal-collab-mark .person {
+  position: relative; width: 54px; height: 54px; border: 4px solid currentColor; border-radius: 50%;
+}
+.minimal-collab-mark .person::after {
+  content: ''; position: absolute; left: 50%; top: 58px; width: 76px; height: 36px;
+  border: 4px solid currentColor; border-bottom: 0; border-radius: 42px 42px 0 0;
+  transform: translateX(-50%);
+}
+.minimal-collab-mark .person-left { color: #9b59ff; }
+.minimal-collab-mark .person-right { color: #20c997; }
+.minimal-collab-mark i { width: 94px; height: 4px; background: linear-gradient(90deg, #9b59ff, #407cff, #20c997); }
 
 /* Guardrails slide */
 .slide-guardrails { text-align: center; color: #f0f6fc; padding: 80px; }
@@ -260,7 +314,87 @@ code { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
 }
 .split-items { display: flex; flex-direction: column; gap: 24px; }
 .split-item { font-size: 2.4rem; font-weight: 500; color: #f0f6fc; line-height: 1.4; }
-.split-divider { width: 1px; background: #30363d; align-self: stretch; flex-shrink: 0; }
+.split-divider { width: 3px; background: linear-gradient(#9b59ff, #407cff 50%, #20c997); align-self: stretch; flex-shrink: 0; }
+.split-icon { position: relative; width: 94px; height: 70px; margin-bottom: 24px; }
+.split-icon-volume span {
+  position: absolute; bottom: 0; width: 20px; border-radius: 4px 4px 0 0;
+}
+.split-icon-volume span:nth-child(1) { left: 2px; height: 36px; background: #9b59ff; }
+.split-icon-volume span:nth-child(2) { left: 35px; height: 54px; background: #407cff; }
+.split-icon-volume span:nth-child(3) { left: 68px; height: 70px; background: #20c997; }
+.split-icon-judgment span { position: absolute; border: 3px solid currentColor; transform: rotate(45deg); }
+.split-icon-judgment span:nth-child(1) { left: 0; top: 23px; width: 28px; height: 28px; color: #9b59ff; }
+.split-icon-judgment span:nth-child(2) { left: 30px; top: 10px; width: 48px; height: 48px; color: #407cff; }
+.split-icon-judgment span:nth-child(3) { right: 0; top: 25px; width: 24px; height: 24px; color: #20c997; }
+@media (max-height: 800px) {
+  .slide-split { padding: 40px 46px; }
+  .split-col { padding: 0 36px; }
+  .split-icon { height: 52px; margin-bottom: 14px; transform: scale(0.72); transform-origin: left top; }
+  .split-heading { margin-bottom: 24px; }
+  .split-items { gap: 14px; }
+  .split-item { font-size: 2rem; line-height: 1.25; }
+}
+@media (max-width: 900px) {
+  .slide-split { padding: 34px 18px; }
+  .split-col { padding: 0 14px; }
+  .split-icon { height: 42px; margin-bottom: 8px; transform: scale(0.58); }
+  .split-heading { font-size: 1.2rem; letter-spacing: 1px; margin-bottom: 18px; }
+  .split-items { gap: 10px; }
+  .split-item { font-size: 1.4rem; line-height: 1.25; }
+}
+
+/* Portable skill files versus one concrete tool setup */
+.slide-portable-setup {
+  width: 100%; height: 100%; padding: 72px 74px;
+  display: grid; grid-template-columns: 1fr 3px 1fr; gap: 58px;
+  align-items: center; color: #f0f6fc;
+}
+.portable-side { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
+.portable-eyebrow { color: #8b949e; font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 34px; }
+.portable-divider { width: 3px; height: 72%; background: linear-gradient(#9b59ff, #407cff 50%, #20c997); }
+.portable-file-stack { position: relative; width: 230px; height: 190px; margin-bottom: 22px; }
+.portable-file {
+  position: absolute; width: 142px; height: 176px; border-radius: 8px;
+  background: #161b22; border: 4px solid currentColor;
+}
+.portable-file::after {
+  content: ''; position: absolute; right: -4px; top: -4px;
+  border-style: solid; border-width: 0 38px 38px 0;
+  border-color: transparent #0d1117 transparent transparent;
+}
+.portable-file-back { left: 0; top: 12px; color: #9b59ff; transform: rotate(-8deg); }
+.portable-file-mid { left: 43px; top: 3px; color: #407cff; }
+.portable-file-front { right: 0; top: 12px; color: #20c997; transform: rotate(8deg); }
+.portable-file-front b { position: absolute; left: 16px; bottom: 18px; font: 800 14px 'Menlo', monospace; color: #f0f6fc; transform: rotate(-8deg); }
+.portable-title { font-size: 4rem; font-weight: 800; margin-bottom: 22px; }
+.portable-file-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 16px; color: #8b949e; font: 700 17px 'Menlo', monospace; }
+.portable-file-list span::before { content: '•'; margin-right: 7px; color: #407cff; }
+.portable-copilot-lockup { width: min(430px, 34vw); height: auto; margin: 18px 0 30px; }
+.portable-plus { color: #8b949e; font-size: 2.4rem; font-weight: 300; margin-bottom: 26px; }
+.portable-vscode { width: min(420px, 33vw); border: 2px solid #484f58; background: #1e1e1e; text-align: left; }
+.portable-vscode-bar { height: 42px; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: #323233; color: #c9d1d9; font-size: 15px; }
+.portable-vscode-bar i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; }
+.portable-vscode-bar i:nth-child(2) { background: #febc2e; }
+.portable-vscode-bar i:nth-child(3) { background: #28c840; }
+.portable-vscode-bar span { margin-left: auto; margin-right: auto; }
+.portable-vscode-body { height: 190px; display: grid; grid-template-columns: 46px 1fr; }
+.portable-vscode-body aside { background: #292929; display: flex; flex-direction: column; align-items: center; gap: 18px; padding-top: 22px; }
+.portable-vscode-body aside b { width: 19px; height: 19px; border: 2px solid #858585; }
+.portable-vscode-body main { padding: 30px 28px; display: flex; flex-direction: column; gap: 18px; }
+.portable-vscode-body main span { height: 10px; border-radius: 5px; background: #407cff; width: 78%; }
+.portable-vscode-body main span:nth-child(2) { background: #9b59ff; width: 58%; }
+.portable-vscode-body main span:nth-child(3) { background: #20c997; width: 86%; }
+.portable-vscode-body main span:nth-child(4) { background: #8b949e; width: 46%; }
+@media (max-width: 900px) {
+  .slide-portable-setup { padding: 42px 34px; gap: 28px; }
+  .portable-file-stack { transform: scale(0.72); margin: -20px 0 -2px; }
+  .portable-title { font-size: 2.8rem; }
+  .portable-copilot-lockup { width: min(310px, 38vw); margin-bottom: 20px; }
+  .portable-vscode { width: min(300px, 38vw); }
+  .portable-vscode-body { height: 145px; }
+  .portable-eyebrow { margin-bottom: 18px; }
+  .slide-minimal .slide-heading { font-size: 3.6rem; }
+}
 
 /* Stat slide */
 .slide-stat { text-align: center; color: #f0f6fc; }
@@ -323,12 +457,6 @@ code { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
   left: 80%; top: 27%; width: 26px; height: 26px;
   border-color: #20c997; box-shadow: 0 0 22px rgba(32,201,151,0.75);
 }
-.thread-label {
-  position: absolute; left: 82%; top: 21%; color: #8b949e;
-  font: 700 16px 'Menlo', monospace; letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
 /* QR slide */
 .slide-qr { text-align: center; color: #f0f6fc; padding: 60px; }
 .qr-card {
@@ -398,6 +526,7 @@ code { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
   display: flex; align-items: center; padding: 0 24px; gap: 16px;
 }
 .sb-logo { font-size: 18px; font-weight: 800; color: #111; margin-right: 8px; white-space: nowrap; }
+.sb-docs-label { margin-left: auto; color: #777; font-size: 13px; font-weight: 600; }
 .sb-search {
   display: flex; align-items: center; gap: 8px;
   border: 1px solid #d0d0d0; border-radius: 8px;
@@ -433,12 +562,16 @@ code { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
 }
 
 .sb-main {
-  flex: 1; padding: 32px 48px; overflow-y: auto; background: #fff;
+  flex: 1; padding: 46px 64px; overflow-y: auto; background: #fff;
 }
-.sb-h1 { font-size: 28px; font-weight: 700; color: #111; margin: 0 0 6px; }
-.sb-sub { font-size: 15px; color: #555; margin: 0 0 24px; }
-.sb-h2 { font-size: 20px; font-weight: 700; color: #111; margin: 24px 0 10px; }
-.sb-p { font-size: 14px; color: #333; line-height: 1.7; margin: 0 0 12px; }
+.sb-h1 { font-size: 32px; font-weight: 700; color: #111; margin: 0 0 8px; }
+.sb-sub { font-size: 17px; color: #555; margin: 0 0 38px; max-width: 680px; }
+.sb-h2 { font-size: 22px; font-weight: 700; color: #111; margin: 0 0 12px; }
+.sb-p { font-size: 16px; color: #333; line-height: 1.65; margin: 0; max-width: 720px; }
+.sb-page-hint { display: flex; flex-direction: column; gap: 12px; margin-top: 46px; opacity: 0.38; }
+.sb-page-hint span { display: block; width: 72%; height: 10px; border-radius: 5px; background: #d8dee4; }
+.sb-page-hint span:nth-child(2) { width: 58%; }
+.sb-page-hint span:nth-child(3) { width: 66%; }
 .sb-code { font-family: 'Menlo', monospace; font-size: 13px; background: #f3f3f3; border-radius: 3px; padding: 1px 5px; color: #c7254e; }
 .sb-codeblock {
   background: #f8f8f8; border: 1px solid #e5e5e5; border-radius: 8px;
@@ -463,7 +596,7 @@ code { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
    Scoped to .slide-browser (used solely by V5b) so no other slide is affected.
    The address bar (.sb-chrome) stays fixed; only the page content zooms,
    matching real browser zoom behavior. Adjust the multiplier to taste. */
-.slide-browser .sb-page { zoom: 1.5; }
+.slide-browser .sb-page { zoom: 1.35; }
 
 /* ===================================================
    VS CODE VIEW
@@ -709,10 +842,6 @@ code { font-family: 'Menlo', 'Monaco', 'Courier New', monospace; }
 .vscode-window.editor-mode .main-column { flex: 0 0 300px; width: 300px; }
 .vscode-window.editor-mode .terminal-panel { display: none !important; }
 
-/* Static full-workspace view: editor center, chat and terminal on the right */
-.vscode-window.workspace-mode .editor-area { flex: 1; }
-.vscode-window.workspace-mode .main-column { flex: 0 0 430px; width: 430px; }
-.vscode-window.workspace-mode .terminal-panel { display: flex; height: 34%; min-height: 180px; }
 
 .chat-messages {
   flex: 1; overflow-y: auto; overflow-x: hidden;

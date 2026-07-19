@@ -22,5 +22,14 @@ Documentation license:
 [CC BY 4.0](https://github.com/agentskills/agentskills/blob/main/docs/LICENSE)
 
 The mock interface was independently implemented for this presentation using
-original HTML and CSS. It does not include upstream source code, logos, fonts,
-or third-party client assets.
+original HTML and CSS. It does not include upstream source code, fonts, or
+third-party client assets.
+
+## GitHub brand assets
+
+The presentation includes unmodified GitHub Invertocat and GitHub Copilot
+lockup assets from the
+[GitHub Brand Toolkit](https://brand.github.com/foundations/logo). GitHub and
+GitHub Copilot are trademarks of GitHub, Inc. Their inclusion identifies the
+tools discussed in the presentation and does not imply endorsement. These brand
+assets are not covered by this repository's MIT License.

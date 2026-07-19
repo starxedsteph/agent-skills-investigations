@@ -341,6 +341,7 @@ window.BEATS = [
       subtitle: 'Building Agents That Surface Hidden Abuse Patterns',
       name: 'Stephanie Elder',
       affiliation: 'Senior Data Analyst, Safety & Integrity · GitHub · TrustCon 2026',
+      brandMark: 'brand/github-invertocat-white.svg',
     }
   },
 
@@ -576,6 +577,7 @@ window.BEATS = [
       type: 'minimal',
       heading: 'Agent Skills',
       sub: 'Packaged instructions an AI can load when it needs to handle a specific task',
+      accent: 'skills',
     }
   },
 
@@ -699,55 +701,15 @@ window.BEATS = [
       terminal: { lines: [] },
       chat: {
         messages: [
-          { role: 'user', content: 'I\'d like to create a new investigation skill to identify account takeovers' },
+          { role: 'user', content: 'I\'d like to create a new investigation skill to identify account takeovers', instant: true },
           { role: 'agent', content: 'Loading `scaffold-investigation-skill`...\n\nWhat table or data source contains the primary login and session signals you use for account takeover detection?' },
-        ],
-        animateLast: true
-      },
-      chatInputDraft: '',
-      authPrompt: false,
-    }
-  },
-  {
-    id: 'V10-2',
-    view: 'vscode',
-    vscode: {
-      explorer: { files: FILES_WITH_SCAFFOLD, expanded: [], highlighted: [] },
-      editor: { filename: 'scaffold-investigation-skill/SKILL.md', content: SKILL_SCAFFOLD },
-      terminal: { lines: [] },
-      chat: {
-        messages: [
-          { role: 'user', content: 'I\'d like to create a new investigation skill to identify account takeovers' },
-          { role: 'agent', content: 'Loading `scaffold-investigation-skill`...\n\nWhat table or data source contains the primary login and session signals you use for account takeover detection?' },
-        ],
-      },
-      chatInputSequence: [
-        { type: 'paste', text: 'recent_logins, password_change_events, email_change_events' },
-        { type: 'pause', ms: 800 },
-        { type: 'post' },
-      ],
-      chatInputDraft: '',
-      authPrompt: false,
-    }
-  },
-  {
-    id: 'V10-3',
-    view: 'vscode',
-    vscode: {
-      explorer: { files: FILES_WITH_SCAFFOLD, expanded: [], highlighted: [] },
-      editor: { filename: 'scaffold-investigation-skill/SKILL.md', content: SKILL_SCAFFOLD },
-      terminal: { lines: [] },
-      chat: {
-        messages: [
-          { role: 'user', content: 'I\'d like to create a new investigation skill to identify account takeovers' },
-          { role: 'agent', content: 'Loading `scaffold-investigation-skill`...\n\nWhat table or data source contains the primary login and session signals you use for account takeover detection?' },
-          { role: 'user', content: 'recent_logins, password_change_events, email_change_events' },
+          { role: 'user', content: 'recent_logins, password_change_events, email_change_events', paste: true, beforePost: 800 },
           { role: 'agent', content: [
             { type: 'step', status: 'Documenting tables...', label: 'Documented tables', delay: 1500 },
             { type: 'text', text: 'What signals most reliably indicate an ATO in your environment? For example: login from a new country, new device fingerprint, password reset followed by email change.' },
           ]},
         ],
-        animateLast: true
+        autoPlay: true
       },
       chatInputDraft: '',
       authPrompt: false,
@@ -992,6 +954,7 @@ window.BEATS = [
       type: 'split',
       left: {
         heading: 'What it handles',
+        icon: 'volume',
         items: [
           'Volume',
           'Multiple signal dimensions at once',
@@ -1001,6 +964,7 @@ window.BEATS = [
       },
       right: {
         heading: 'Where you\'re irreplaceable',
+        icon: 'judgment',
         items: [
           'The right first question',
           'Knowing when the cluster is too wide',
@@ -1039,22 +1003,10 @@ window.BEATS = [
   // ── V16a: Portable / your setup ───────────────────────────────────────
   {
     id: 'V16a',
-    view: 'vscode',
-    vscode: {
-      explorer: { files: FILES_BASE, expanded: ['investigation-signup'], highlighted: ['investigation-signup'] },
-      editor: { filename: 'investigation-signup/SKILL.md', content: SKILL_SIGNUP },
-      terminal: { lines: [
-        '$ SELECT login, country_code, ja4, created_at',
-        '    FROM signups WHERE created_at > NOW() - INTERVAL 1 DAY;',
-        '  → 2,184 rows returned',
-      ]},
-      chat: { messages: [
-        { role: 'user', content: 'Check today\'s signup spike for coordinated account creation.' },
-        { role: 'agent', content: 'Loaded `investigation-signup`. I\'m comparing timing, shared infrastructure, and username patterns, then I\'ll return rows you can spot-check.' },
-      ]},
-      workspaceMode: true,
-      chatInputDraft: '',
-      authPrompt: false,
+    view: 'slide',
+    slide: {
+      type: 'portable-setup',
+      copilotLockup: 'brand/github-copilot-lockup-white.svg',
     }
   },
 
@@ -1066,6 +1018,7 @@ window.BEATS = [
       type: 'minimal',
       heading: 'AI → Person-to-Person Collaboration',
       sub: 'A shared place for the team\'s expertise to compound',
+      accent: 'collaboration',
     }
   },
 
