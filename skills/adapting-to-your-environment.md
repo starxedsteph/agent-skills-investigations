@@ -30,15 +30,11 @@ It should cover:
 
 ## Create a skill with the agent
 
-Start with the investigation domain you know best. Ask the agent to load both
-creation skills and lead the process:
+Start with the investigation domain you know best and describe what you want to
+create. The agent will discover the relevant creation skills and lead the process:
 
 ```text
-Load skill-creator and scaffold-investigation-skill. Help me create an
-investigation skill for [abuse domain]. Ask me for the most important missing
-information one question at a time. When you have enough context, create the
-skill using the investigation-skill structure and validate it against the
-agentskills.io specification.
+Help me create a ___ investigation skill
 ```
 
 Bring rough answers, not a polished draft. Existing queries, table notes,
@@ -65,8 +61,8 @@ Treat corrections from real use as inputs to the same workflow. Do not hand the
 agent a replacement draft; give it the existing skill and the new knowledge:
 
 ```text
-Load skill-creator and scaffold-investigation-skill. Review my existing
-investigation-[domain] skill and update it with this correction:
+Review my existing investigation-[domain] skill and update it with this
+correction:
 
 [new query, false positive, signal, gotcha, or workflow correction]
 
@@ -123,12 +119,8 @@ The best investigation skills come from more than one person.
 
 That teammate who always knows the right table to query? Pull them in.
 The person who's written every phishing investigation for the last three years?
-Have them answer the agent's questions while it creates the phishing skill. Their knowledge goes in once;
+Have them help write the phishing skill. Their knowledge goes in once;
 the whole team can access it from that point forward.
-
-A useful framing: "The agent is turning our [investigation type] process into a
-reusable skill. Can you help answer its questions about the tables, queries,
-signals, false positives, and gotchas we rely on?"
 
 You're not replacing their expertise. You're making it available to everyone
 who does this work.

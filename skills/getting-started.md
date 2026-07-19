@@ -16,8 +16,16 @@ skills to interview you, organize that knowledge, and write or update the files.
 ## Install the skills
 
 This repository keeps source material under `skills/`, but clients discover
-skills from client-specific locations. Copy each complete skill directory you
-want to use into a supported project or personal skills directory.
+skills from client-specific locations. The easiest option is to ask your model
+to install them for you:
+
+```text
+Install these skills in the appropriate project skills location for my client.
+Copy each complete skill directory and tell me where you installed it.
+```
+
+You can also copy each complete skill directory yourself into a supported
+project or personal skills directory.
 
 For GitHub Copilot in VS Code, project skills can live in `.github/skills/`,
 `.claude/skills/`, or `.agents/skills/`. The example below uses
@@ -42,22 +50,20 @@ locations; choose your client from the [agentskills.io client
 directory](https://agentskills.io/clients) and follow its instructions.
 
 Add your project skills directory to git so skill changes are reviewed and
-versioned. Then ask the agent to list or load `skill-creator` and
-`scaffold-investigation-skill`. If it cannot find them, check the discovery
+versioned. Ask the agent to create an investigation skill as described below.
+If it does not discover the creation workflow, check the skill-discovery
 location for your client before continuing.
 
 ## Have the agent create your first skill
 
 Start with the investigation type you know best (signup abuse, billing fraud,
-content spam, or whatever you do most). Do not draft the skill first. Ask the
-agent to load `skill-creator` and `scaffold-investigation-skill`, then let it
+content spam, or whatever you do most). Do not draft the skill first. Describe
+what you want to create and let the agent discover the relevant skills. It will
 interview you for your tables, working queries, signals, false positives,
-stopping criteria, and gotchas. It will assemble and validate the files.
+stopping criteria, and gotchas, then assemble and validate the files.
 
 ```text
-Load skill-creator and scaffold-investigation-skill. Help me create an
-investigation skill for [abuse domain]. Ask me for the most important missing
-information one question at a time, then write and validate the skill.
+Help me create a ___ investigation skill
 ```
 
 See [`adapting-to-your-environment.md`](adapting-to-your-environment.md) for
@@ -116,8 +122,8 @@ already closed, where you know what the cluster looked like and how it was
 found. See if the agent finds the same thing you did.
 
 If it doesn't — that's useful information. Update the skill with what it missed.
-Ask the agent to load both creation skills again, review the existing skill,
-make the correction in the right place, and revalidate the result.
+Ask the agent to review the existing skill, make the correction in the right
+place, and revalidate the result.
 
 ---
 
@@ -126,7 +132,7 @@ make the correction in the right place, and revalidate the result.
 - [ ] AI model approved for my data's classification level
 - [ ] Skills copied to a discovery location supported by my client
 - [ ] `skill-creator` installed from Anthropic's complete skill directory
-- [ ] Agent can load `skill-creator` and `scaffold-investigation-skill`
+- [ ] Agent discovers the skill-creation workflow from my request
 - [ ] Project skills directory added to git
 - [ ] Database connection set up read-only with credentials in env vars (if needed)
 - [ ] Agent created at least one investigation skill for my environment

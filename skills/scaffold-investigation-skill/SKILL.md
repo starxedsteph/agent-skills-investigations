@@ -154,8 +154,7 @@ If `SKILL.md` runs long, move query libraries and schema notes into `references/
 **Start interactively**
 
 ```
-I want to create an investigation skill for account takeovers.
-Walk me through what you need from me.
+Help me create a ___ investigation skill
 ```
 
 **Provide tables and queries upfront**
@@ -186,8 +185,7 @@ and ask me for any context you still need.
 **Add domain knowledge later**
 
 ```
-Load skill-creator and scaffold-investigation-skill, then update my
-investigation-account-takeover skill with this gotcha:
+Update my investigation-account-takeover skill with this gotcha:
 "last_login is updated lazily — it can lag real activity by up to an hour."
 
 Review the existing skill, make the change in the right section, and validate
