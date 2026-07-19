@@ -1,9 +1,14 @@
 # Adapting to Your Environment
 
 The starter skills in this repo are generic by design — they don't know your
-tables, your column names, or the quirks of your data. That's the part you add.
+tables, your column names, or the quirks of your data. That's the expertise you
+give the agent.
 
-This guide walks through building an investigation skill for your environment.
+You do not need to draft the skill yourself. Install
+[`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
+and this repository's
+[`scaffold-investigation-skill`](scaffold-investigation-skill/), then let the
+agent interview you, create the files, and validate the result.
 
 ---
 
@@ -23,62 +28,50 @@ It should cover:
 
 ---
 
-## Template
+## Create a skill with the agent
 
-Copy this as a starting point:
+Start with the investigation domain you know best. Ask the agent to load both
+creation skills and lead the process:
 
-```markdown
----
-name: investigation-[type]
-description: Investigates [type] abuse using [main signals]. Covers [table-1], [table-2].
----
+```text
+Load skill-creator and scaffold-investigation-skill. Help me create an
+investigation skill for [abuse domain]. Ask me for the most important missing
+information one question at a time. When you have enough context, create the
+skill using the investigation-skill structure and validate it against the
+agentskills.io specification.
+```
 
-# Investigation: [Type]
+Bring rough answers, not a polished draft. Existing queries, table notes,
+runbooks, and examples from closed investigations are useful source material.
+The agent should organize them into the canonical structure defined by
+`scaffold-investigation-skill`:
 
-## Tables
+```text
+investigation-{domain}/
+├── SKILL.md
+└── references/
+    ├── tables.md
+    ├── queries.md
+    └── patterns.md
+```
 
-**[table_name]** — [what it contains and when to use it]
-- `[column]` — [what it actually means, especially if the name is misleading]
-- `[column]` — [cast requirements, if any]
+The agent may omit reference files that are not needed. It should keep the main
+`SKILL.md` focused and move detailed schemas, query libraries, and investigation
+patterns into references that load on demand.
 
-**[table_name]** — [what it contains]
-- `[column]` — [notes]
+## Update a skill with the agent
 
-## Signals
+Treat corrections from real use as inputs to the same workflow. Do not hand the
+agent a replacement draft; give it the existing skill and the new knowledge:
 
-The primary signals for this investigation type:
+```text
+Load skill-creator and scaffold-investigation-skill. Review my existing
+investigation-[domain] skill and update it with this correction:
 
-1. **[Signal name]** — [what it is and where to find it]. Strong signal if [threshold].
-2. **[Signal name]** — [what it is and where to find it]. Treat as corroborating, not primary, if [condition].
-3. **[Signal name]** — [what it is and where to find it].
+[new query, false positive, signal, gotcha, or workflow correction]
 
-## Query patterns
-
-[Describe the approach: do you start with a subquery, a CTE, a direct JOIN?
-Any specific patterns that work well or poorly in this environment?]
-
-When querying [table], always [specific convention, e.g., "filter by created_at
-before joining — the table is large and full scans are slow"].
-
-## Expansion methodology
-
-Starting from seed accounts:
-1. Identify the strongest signal present across ≥ X% of seeds
-2. Query for all accounts sharing that signal within [time window]
-3. Require ≥ 2 independent signals before calling it a campaign
-4. Stop expanding when [stopping criterion, e.g., the next expansion adds <5% new accounts]
-
-## Gotchas
-
-- `[column]` reads like [X] but actually means [Y]. Use [column_2] for [what you wanted].
-- [Platform behavior that looks like abuse but isn't, e.g., iCloud Hide My Email creates
-  privaterelay.appleid.com addresses for legitimate users — do not flag this as an abuse pattern]
-- [Anything else you've learned the hard way]
-
-## Output
-
-Always include in results: [account_id, username, email, created_at, and the specific
-field that connects them to the cluster]. This makes the finding spot-checkable.
+Preserve accurate guidance, put the update in the right file, and validate the
+complete skill after editing it.
 ```
 
 ---
@@ -86,7 +79,7 @@ field that connects them to the cluster]. This makes the finding spot-checkable.
 ## Column gotchas — why this matters
 
 Every system has columns whose names don't match what they actually store.
-You already know these by heart. Write them down.
+You already know these by heart. Tell the agent so it can put them in the skill.
 
 Examples of the kind of thing worth documenting:
 
@@ -98,11 +91,11 @@ Examples of the kind of thing worth documenting:
   compare it to another date
 
 Every time the agent has to re-figure one of these out, it might get it wrong.
-Write it down once and it gets it right every time.
+Have it record the correction once so the skill carries it into future work.
 
 ---
 
-## Adding references
+## What the agent should put in references
 
 For complex tables or investigation types, add a `references/` subfolder:
 
@@ -111,15 +104,15 @@ investigation-billing/
   SKILL.md
   references/
     tables.md          ← detailed table and column documentation
-    sample-queries.md  ← queries you've used that work well
-    known-patterns.md  ← specific patterns this team has seen before
+    queries.md         ← queries you've used that work well
+    patterns.md        ← specific patterns this team has seen before
 ```
 
-Reference these files in your SKILL.md:
+The agent should link each reference from `SKILL.md` and say when to load it:
 
 ```markdown
 See `references/tables.md` for full column documentation on the billing tables.
-See `references/sample-queries.md` for tested query patterns.
+See `references/queries.md` for tested query patterns.
 ```
 
 ---
@@ -130,12 +123,12 @@ The best investigation skills come from more than one person.
 
 That teammate who always knows the right table to query? Pull them in.
 The person who's written every phishing investigation for the last three years?
-Have them help write the phishing skill. Their knowledge goes in once;
+Have them answer the agent's questions while it creates the phishing skill. Their knowledge goes in once;
 the whole team can access it from that point forward.
 
-A useful framing: "I'm writing down how we do [investigation type] so the
-whole team can use it. Can you tell me which tables you start with and
-what signals you look for?"
+A useful framing: "The agent is turning our [investigation type] process into a
+reusable skill. Can you help answer its questions about the tables, queries,
+signals, false positives, and gotchas we rely on?"
 
 You're not replacing their expertise. You're making it available to everyone
 who does this work.

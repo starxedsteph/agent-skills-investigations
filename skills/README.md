@@ -5,6 +5,13 @@ This folder contains starter skills for AI-assisted abuse investigations.
 > These skills are provided for demonstration and educational purposes. Test them
 > thoroughly in your own environment before relying on them for real work.
 
+## Start Here
+
+1. **[Security](SECURITY.md)** — Read this before connecting an agent to internal data
+2. **[Getting Started](getting-started.md)** — Install the skills and let the agent create your first environment-specific skill
+3. **[Adapting to Your Environment](adapting-to-your-environment.md)** — Teach the agent your tables, signals, queries, and gotchas
+4. **[Best Practices](best-practices.md)** — Test agent output, version skill changes, and validate findings before acting
+
 ## What is a skill?
 
 A skill is a folder with a `SKILL.md` file inside it. That file contains:
@@ -16,7 +23,8 @@ my-skill/
   SKILL.md          ← required
   references/       ← optional: sample queries, table docs, gotchas
     tables.md
-    sample-queries.md
+    queries.md
+    patterns.md
 ```
 
 The `SKILL.md` format uses YAML frontmatter:
@@ -57,16 +65,19 @@ it can go back, scan the list again, and load additional skills.
 
 | Skill | Description |
 |---|---|
-| [`scaffold-investigation-skill`](scaffold-investigation-skill/) | Interactive assistant for building new `investigation-*` skills consistently |
 | [`campaign-identification`](campaign-identification/) | Orchestrates multi-signal campaign expansion from seed entities |
-| [`investigation-seo-spam`](investigation-seo-spam/) | Internet-based SEO spam investigation; no internal data required |
+| [`investigation-seo-spam`](investigation-seo-spam/) | Investigates SEO spam using public web search — no internal data required |
+| [`scaffold-investigation-skill`](scaffold-investigation-skill/) | Guides the agent through creating and updating investigation skills; requires [`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator) |
 
 ## Building your own
 
 The most important skills are the ones specific to your environment:
 your tables, your abuse patterns, your query conventions.
 
-Start here: [`adapting-to-your-environment.md`](adapting-to-your-environment.md)
+You do not need to draft the skill yourself. Install [`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator)
+and this repository's [`scaffold-investigation-skill`](scaffold-investigation-skill/),
+then ask the agent to interview you and create or update the skill. See
+[`adapting-to-your-environment.md`](adapting-to-your-environment.md) for the workflow.
 
 ## Tips for writing good skill instructions
 

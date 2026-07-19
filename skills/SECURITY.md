@@ -58,14 +58,15 @@ The agent should be able to **query**, not **modify**.
 
 A read-only database connection is a meaningful safety boundary. Even if the
 agent makes a mistake — misidentifies a cluster, follows a bad signal, or is
-manipulated by a prompt injection attack (see below) — the worst it can do is
-return incorrect results. It cannot delete rows, update records, or take an
-action it wasn't supposed to take.
+manipulated by a prompt injection attack (see below) — it cannot delete rows or
+modify records. Read-only access does not prevent disclosure, excessive reads,
+or actions through other connected tools. Limit the data it can read and keep
+sensitive-data access separate from outbound tools.
 
 Configure the database user or service account with SELECT-only permissions
-on only the tables it needs. If your connection setup requires write access
-for some reason, that is worth a specific conversation with the engineer
-setting it up before proceeding.
+on only the tables it needs. If surrounding infrastructure requires write
+access, keep that permission on a separate service or principal that the agent
+cannot use. The credential exposed to the agent remains SELECT-only.
 
 **Principle of least privilege applies here:** if your investigation skill
 only needs three tables, don't grant access to the entire schema.
@@ -125,8 +126,10 @@ should pull everything in it.
 - Avoid pulling raw PII into the chat context unless it's necessary for the
   investigation. Account IDs and counts are often enough to confirm a finding;
   pull email addresses and names only when you need them for validation
-- When the agent outputs findings, ask it to **include identifiable rows for
-  spot-checking** rather than dumping full PII tables
+- When the agent outputs findings, require only the **minimum context needed for
+  spot-checking**: a stable identifier and the signal connecting each row to the
+  finding. Include email or other PII only when necessary for validation and
+  only in an output location approved for that data
 
 This is both a privacy practice and a practical one: large result sets in the
 chat context increase the chance of reasoning errors and make the output harder

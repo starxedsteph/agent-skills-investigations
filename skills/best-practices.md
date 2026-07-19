@@ -59,8 +59,10 @@ Start a fresh chat for each investigation. It keeps the reasoning clean.
 
 Don't act on a cluster you can't spot-check.
 
-Always require output that includes identifiable rows: username, ID, email,
-and whatever data connects them. Then check a sample of them manually.
+Always require enough identifiable context to spot-check a sample manually:
+a stable identifier and whatever data connects each row to the finding. Include
+email or other PII only when it is necessary for validation and appropriate for
+the access-controlled output location.
 If you can't explain how the accounts in the cluster are related — in plain
 language — ask the agent to explain its reasoning before you proceed.
 
