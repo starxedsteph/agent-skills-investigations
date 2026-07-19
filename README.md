@@ -8,19 +8,7 @@ an AI-assisted investigation workflow on your own team.
 
 ## Run the presentation
 
-This repository pins its Node.js version with `asdf`. From the repository root:
-
-```sh
-asdf install
-npm start
-```
-
-Open the URL printed in the terminal, normally
-[http://127.0.0.1:3000](http://127.0.0.1:3000). No `npm install` is required.
-If port 3000 is busy, the server automatically selects the next available port
-and prints that URL instead.
-
-You can also run `npm start` from `conference-slides/`.
+[View the TrustCon 2026 slides](https://starxedsteph.github.io/agent-skills-investigations/).
 
 ## Start Here
 
