@@ -65,8 +65,8 @@ function setPaused(p) {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); advance(); }
-  else if (e.key === 'ArrowLeft') { e.preventDefault(); back(); }
+  if (['ArrowRight', ' ', 'PageDown', 'Enter'].includes(e.key)) { e.preventDefault(); advance(); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); back(); }
   else if (e.key === 'p' || e.key === 'P') { e.preventDefault(); setPaused(!paused); }
 });
 
@@ -111,12 +111,14 @@ function renderSlide(s) {
     case 'browser':     el.innerHTML = slideBrowserHTML(s); break;
     case 'validation':  el.innerHTML = slideValidationHTML(s); break;
     case 'thread-map':  el.innerHTML = slideThreadMapHTML(); break;
+    case 'portable-setup': el.innerHTML = slidePortableSetupHTML(s); break;
     case 'qr':          el.innerHTML = slideQRHTML(s); break;
   }
 }
 
 function slideTitleHTML(s) {
   return `<div class="slide-title">
+    ${s.brandMark ? `<img class="title-github-mark" src="${esc(s.brandMark)}" alt="GitHub">` : ''}
     <div class="talk-title">${esc(s.title)}</div>
     <div class="talk-subtitle">${esc(s.subtitle)}</div>
     <div class="speaker-name">${esc(s.name)}</div>
@@ -215,8 +217,15 @@ function startCrowdingAnimation() {
 }
 
 function slideMinimalHTML(s) {
-  return `<div class="slide-minimal">
+  const accent = s.accent === 'skills'
+    ? `<div class="minimal-skill-mark" aria-hidden="true"><span></span><span></span><span></span></div>`
+    : s.accent === 'collaboration'
+      ? `<div class="minimal-collab-mark" aria-hidden="true"><span class="person person-left"></span><i></i><span class="person person-right"></span></div>`
+      : '';
+  return `<div class="slide-minimal ${s.accent ? `slide-minimal-${esc(s.accent)}` : ''}">
+    ${accent}
     <div class="slide-heading">${esc(s.heading)}</div>
+    ${s.accent ? '<div class="minimal-accent-line"></div>' : ''}
     ${s.sub ? `<div class="slide-sub">${esc(s.sub)}</div>` : ''}
   </div>`;
 }
@@ -237,12 +246,14 @@ function slideSplitHTML(s) {
     `<div class="split-item">${esc(item)}</div>`
   ).join('');
   return `<div class="slide-split">
-    <div class="split-col">
+    <div class="split-col split-col-left">
+      ${s.left.icon ? `<div class="split-icon split-icon-${esc(s.left.icon)}" aria-hidden="true"><span></span><span></span><span></span></div>` : ''}
       <div class="split-heading">${esc(s.left.heading)}</div>
       <div class="split-items">${col(s.left)}</div>
     </div>
     <div class="split-divider"></div>
-    <div class="split-col">
+    <div class="split-col split-col-right">
+      ${s.right.icon ? `<div class="split-icon split-icon-${esc(s.right.icon)}" aria-hidden="true"><span></span><span></span><span></span></div>` : ''}
       <div class="split-heading">${esc(s.right.heading)}</div>
       <div class="split-items">${col(s.right)}</div>
     </div>
@@ -259,48 +270,19 @@ function slideBrowserHTML(s) {
     <div class="sb-page">
       <nav class="sb-topnav">
         <span class="sb-logo">Agent Skills</span>
-        <div class="sb-search"><span class="sb-search-icon">⌕</span> Search… <span class="sb-search-key">⌘K</span></div>
-        <div class="sb-ask">✦ Ask Assistant</div>
-        <div class="sb-github">⊕ agentskills/agentskills ☆ 23,150</div>
+        <span class="sb-docs-label">Documentation</span>
       </nav>
-      <div class="sb-body">
-        <aside class="sb-sidenav">
-          <div class="sb-sidenav-item sb-sidenav-active">Overview</div>
-          <div class="sb-sidenav-item">Specification</div>
-          <div class="sb-sidenav-item">Client Showcase</div>
-          <div class="sb-sidenav-section">For skill creators</div>
-          <div class="sb-sidenav-item">Quickstart</div>
-          <div class="sb-sidenav-item">Best practices</div>
-          <div class="sb-sidenav-item">Optimizing descriptions</div>
-          <div class="sb-sidenav-item">Evaluating skills</div>
-          <div class="sb-sidenav-item">Using scripts</div>
-          <div class="sb-sidenav-section">For client implementors</div>
-          <div class="sb-sidenav-item">Adding skills support</div>
-        </aside>
-        <main class="sb-main">
-          <h1 class="sb-h1">Agent Skills Overview</h1>
-          <p class="sb-sub">A standardized way to give AI agents new capabilities and expertise.</p>
-          <h2 class="sb-h2">What are Agent Skills?</h2>
-          <p class="sb-p">Agent Skills are a lightweight, open format for extending AI agent capabilities with specialized knowledge and workflows.</p>
-          <p class="sb-p">At its core, a skill is a folder containing a <code class="sb-code">SKILL.md</code> file. This file includes metadata (<code class="sb-code">name</code> and <code class="sb-code">description</code>, at minimum) and instructions that tell an agent how to perform a specific task.</p>
-          <div class="sb-codeblock">
-            <div class="sb-codeblock-line"><span class="sb-dir">my-skill/</span></div>
-            <div class="sb-codeblock-line"><span class="sb-tree">├──</span> <span class="sb-file">SKILL.md</span>        <span class="sb-comment"># Required: metadata + instructions</span></div>
-            <div class="sb-codeblock-line"><span class="sb-tree">├──</span> <span class="sb-file">scripts/</span>        <span class="sb-comment"># Optional: executable code</span></div>
-            <div class="sb-codeblock-line"><span class="sb-tree">├──</span> <span class="sb-file">references/</span>     <span class="sb-comment"># Optional: documentation</span></div>
-            <div class="sb-codeblock-line"><span class="sb-tree">├──</span> <span class="sb-file">assets/</span>         <span class="sb-comment"># Optional: templates, resources</span></div>
-            <div class="sb-codeblock-line"><span class="sb-tree">└──</span> <span class="sb-file">...</span>             <span class="sb-comment"># Any additional files or directories</span></div>
+      <div class="sb-body sb-structure-body">
+        <main class="sb-structure-main">
+          <div class="sb-structure-tree" role="img" aria-label="Example Agent Skill directory structure">
+            <div class="sb-structure-root"><span class="sb-dir">my-skill/</span></div>
+            <div><span class="sb-tree">├── </span><span class="sb-file">SKILL.md</span><span class="sb-comment"># Required: metadata + instructions</span></div>
+            <div><span class="sb-tree">├── </span><span class="sb-dir">scripts/</span><span class="sb-comment"># Optional: executable code</span></div>
+            <div><span class="sb-tree">├── </span><span class="sb-dir">references/</span><span class="sb-comment"># Optional: documentation</span></div>
+            <div><span class="sb-tree">├── </span><span class="sb-dir">assets/</span><span class="sb-comment"># Optional: templates, resources</span></div>
+            <div><span class="sb-tree">└── </span><span class="sb-file">...</span><span class="sb-comment"># Any additional files or directories</span></div>
           </div>
         </main>
-        <aside class="sb-toc">
-          <div class="sb-toc-title">≡ On this page</div>
-          <div class="sb-toc-item">What are Agent Skills?</div>
-          <div class="sb-toc-item">Why Agent Skills?</div>
-          <div class="sb-toc-item">How do Agent Skills work?</div>
-          <div class="sb-toc-item">Where can I use Agent Skills?</div>
-          <div class="sb-toc-item">Open development</div>
-          <div class="sb-toc-item">Get started with Agent Skills</div>
-        </aside>
       </div>
     </div>
   </div>`;
@@ -348,7 +330,31 @@ function slideThreadMapHTML() {
     <div class="thread-node node-8"></div>
     <div class="thread-node node-9"></div>
     <div class="thread-node node-10"></div>
-    <div class="thread-label">one more branch</div>
+  </div>`;
+}
+
+function slidePortableSetupHTML(s) {
+  return `<div class="slide-portable-setup">
+    <section class="portable-side portable-skills-side">
+      <div class="portable-eyebrow">Portable</div>
+      <div class="portable-file-stack" aria-hidden="true">
+        <span class="portable-file portable-file-back"></span>
+        <span class="portable-file portable-file-mid"></span>
+        <span class="portable-file portable-file-front"><b>SKILL.md</b></span>
+      </div>
+      <div class="portable-title">Skills</div>
+      <div class="portable-file-list"><span>SKILL.md</span><span>references/</span><span>scripts/</span></div>
+    </section>
+    <div class="portable-divider"></div>
+    <section class="portable-side portable-setup-side">
+      <div class="portable-eyebrow">My setup</div>
+      <img class="portable-copilot-lockup" src="${esc(s.copilotLockup)}" alt="GitHub Copilot">
+      <div class="portable-plus">+</div>
+      <div class="portable-vscode" role="img" aria-label="Stylized Visual Studio Code window">
+        <div class="portable-vscode-bar"><i></i><i></i><i></i><span>VS Code</span></div>
+        <div class="portable-vscode-body"><aside><b></b><b></b><b></b></aside><main><span></span><span></span><span></span><span></span></main></div>
+      </div>
+    </section>
   </div>`;
 }
 
@@ -426,17 +432,10 @@ function renderVSCode(state) {
   const vsWin      = document.querySelector('.vscode-window');
   if (state.editorMode) {
     vsWin.classList.add('editor-mode');
-    vsWin.classList.remove('workspace-mode');
-    editorArea.style.display = 'flex';
-    chatPanel.style.display  = 'flex';
-  } else if (state.workspaceMode) {
-    vsWin.classList.remove('editor-mode');
-    vsWin.classList.add('workspace-mode');
     editorArea.style.display = 'flex';
     chatPanel.style.display  = 'flex';
   } else {
     vsWin.classList.remove('editor-mode');
-    vsWin.classList.remove('workspace-mode');
     editorArea.style.display = 'none';
     chatPanel.style.display  = 'flex';
   }
@@ -745,20 +744,37 @@ function autoPlayChat(msgs, chatEl) {
         timers.push(t);
       });
     } else {
+      if (msg.instant) {
+        const msgEl = buildMsgEl(msg);
+        chatEl.appendChild(msgEl);
+        chatEl.scrollTop = chatEl.scrollHeight;
+        const t = setTimeout(() => playNext(i + 1), ms(msg.pauseAfter || 500));
+        timers.push(t);
+        return;
+      }
+
       // Type user message into input box, then post
       const text = msg.content;
       let delay = ms(300);
 
-      [...text].forEach((ch, idx) => {
+      if (msg.paste) {
         const t = setTimeout(() => {
           phEl.style.display = 'none';
-          inputEl.innerHTML = esc(text.slice(0, idx + 1)).replace(/\n/g, '<br>');
+          inputEl.innerHTML = esc(text).replace(/\n/g, '<br>');
         }, delay);
         timers.push(t);
-        delay += ms(12);
-      });
+      } else {
+        [...text].forEach((ch, idx) => {
+          const t = setTimeout(() => {
+            phEl.style.display = 'none';
+            inputEl.innerHTML = esc(text.slice(0, idx + 1)).replace(/\n/g, '<br>');
+          }, delay);
+          timers.push(t);
+          delay += ms(12);
+        });
+      }
 
-      delay += ms(600);
+      delay += ms(msg.beforePost || 600);
       const tPost = setTimeout(() => {
         inputEl.innerHTML = '';
         phEl.style.display = 'block';
