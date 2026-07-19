@@ -134,20 +134,7 @@ to review.
 
 ---
 
-## 6. One investigation per chat session
-
-Don't reuse a chat session across multiple investigations.
-
-Each conversation is the agent's active working memory. If you run two
-investigations in the same session, the agent may reference signals,
-fingerprints, or account IDs from the first case while reasoning about
-the second. This produces reasoning errors that can be hard to spot.
-
-Start a fresh chat for each investigation.
-
----
-
-## 7. Vet the skills you install
+## 6. Vet the skills you install
 
 A skill file is a set of instructions your agent will follow. A malicious or
 tampered skill is itself a prompt-injection vector — it can tell the agent to
@@ -162,7 +149,7 @@ exfiltrate data, widen a query, or take an action you didn't intend.
 
 ---
 
-## 8. Know where your investigation data is logged and retained
+## 7. Know where your investigation data is logged and retained
 
 What you type into a chat and what the agent returns may be **logged and retained**
 by the AI provider, and in some tiers used to improve models. Investigation data
@@ -189,7 +176,6 @@ often contains PII, so this matters.
 | ☐ | Sensitive-data access and outbound/send tools kept in separate sessions |
 | ☐ | Skills reviewed before install, pulled from trusted sources, version-pinned |
 | ☐ | Provider logging/retention understood; prompts not retained for training |
-| ☐ | One investigation per chat session |
 
 ---
 
