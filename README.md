@@ -8,33 +8,24 @@ an AI-assisted investigation workflow on your own team.
 
 ## Run the presentation
 
-This repository pins its Node.js version with `asdf`. From the repository root:
+[View the TrustCon 2026 slides](https://starxedsteph.github.io/agent-skills-investigations/).
 
-```sh
-asdf install
-npm start
-```
+## Start Here
 
-Open the URL printed in the terminal, normally
-[http://127.0.0.1:3000](http://127.0.0.1:3000). No `npm install` is required.
-If port 3000 is busy, the server automatically selects the next available port
-and prints that URL instead.
+1. **[Security](skills/SECURITY.md)** — Read this before connecting anything to your data
+2. **[Getting Started](skills/getting-started.md)** — Set up the workflow with or without database access
+3. **[Investigation Skills](skills/README.md)** — Learn what skills are, how agents use them, and what this repository includes
+4. **[Adapting to Your Environment](skills/adapting-to-your-environment.md)** — Build skills around your own tables, signals, and investigation process
+5. **[Best Practices](skills/best-practices.md)** — Test agent output, version your skills, and validate findings before acting
 
-You can also run `npm start` from `conference-slides/`.
-
-## What's here
+## What's Included
 
 | | |
 |---|---|
 | [`skills/`](skills/) | Starter skills and documentation |
 | [`skills/campaign-identification`](skills/campaign-identification/) | Orchestrates multi-signal campaign expansion from seed entities |
 | [`skills/investigation-seo-spam`](skills/investigation-seo-spam/) | Finds SEO spam using public web search — no internal data required |
-
-## Start here
-
-1. **[`skills/SECURITY.md`](skills/SECURITY.md)** — Read this before connecting anything to your data
-2. **[`skills/getting-started.md`](skills/getting-started.md)** — Setup checklist (with and without database access)
-3. **[`skills/README.md`](skills/README.md)** — What skills are and how to write them
+| [`skills/scaffold-investigation-skill`](skills/scaffold-investigation-skill/) | Guides analysts through building spec-compliant investigation skills |
 
 ## About
 
