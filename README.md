@@ -10,6 +10,9 @@ an AI-assisted investigation workflow on your own team.
 
 [View the TrustCon 2026 slides](https://starxedsteph.github.io/agent-skills-investigations/).
 
+Use `→`, `Space`, `Page Down`, or `Enter` to advance; `←` or `Page Up` to go back;
+and `P` to pause or resume animations.
+
 ## Start Here
 
 1. **[Security](skills/SECURITY.md)** — Read this before connecting anything to your data
